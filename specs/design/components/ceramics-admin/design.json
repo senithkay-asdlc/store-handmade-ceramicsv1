@@ -7,20 +7,36 @@
   "appPath": "ceramics-admin",
   "entrypoint": "deployment/web-application",
   "exposure": "internet",
+  "description": "The store owner's admin area: add/edit/remove products, set stock quantities, and view and update the fulfillment status of incoming orders. Reachable only when signed in as the store owner. Does not serve shopper-facing browsing, cart, or checkout — that is the storefront app's job.",
   "dependencies": [
     {
       "kind": "component",
       "name": "ceramics-api",
-      "description": "Manages the product catalog and inventory, and views/updates order fulfillment status."
+      "description": "Manages the product catalog and inventory, and views/updates order fulfillment status.",
+      "wiring": {
+        "endpoint": {
+          "component": "store-handmade-ceramicsv1-ceramics-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "CERAMICS_API_URL"
+          }
+        }
+      }
     },
     {
       "kind": "platform-resource",
       "name": "user-auth",
+      "description": "Required store-owner sign-in via Thunder SSO; the admin area is unreachable without it.",
       "resourceType": "thunder-app",
-      "parameters": { "scopes": "openid profile email" },
-      "description": "Required store-owner sign-in via Thunder SSO; the admin area is unreachable without it."
+      "parameters": {
+        "scopes": "openid profile email"
+      }
     }
   ],
-  "description": "The store owner's admin area: add/edit/remove products, set stock quantities, and view and update the fulfillment status of incoming orders. Reachable only when signed in as the store owner. Does not serve shopper-facing browsing, cart, or checkout — that is the storefront app's job.",
-  "skillsPinned": ["wireframes", "react-webapp", "thunder-authentication"]
+  "skillsPinned": [
+    "wireframes",
+    "react-webapp",
+    "thunder-authentication"
+  ]
 }

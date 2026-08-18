@@ -7,41 +7,81 @@
   "appPath": "ceramics-api",
   "entrypoint": "deployment/service",
   "exposure": "internet",
+  "description": "The backend for the ceramics store: exposes the product/category catalog, cart, checkout, and order endpoints used by both the storefront and admin web apps, and enforces store-owner-only access on catalog and order-management operations. Does not render any UI and does not issue its own auth tokens — Thunder is the identity provider.",
   "dependencies": [
     {
       "kind": "platform-resource",
       "name": "ceramics-db",
+      "description": "Stores products, categories, carts, orders, and order items.",
       "resourceType": "postgres",
-      "description": "Stores products, categories, carts, orders, and order items."
+      "wiring": {
+        "ref": "store-handmade-ce-1d3fad9b",
+        "envBindings": {
+          "adminPassword": "CERAMICS_DB_ADMINPASSWORD",
+          "adminURL": "CERAMICS_DB_ADMINURL",
+          "database": "CERAMICS_DB_DATABASE",
+          "host": "CERAMICS_DB_HOST",
+          "password": "CERAMICS_DB_PASSWORD",
+          "port": "CERAMICS_DB_PORT",
+          "url": "CERAMICS_DB_URL",
+          "username": "CERAMICS_DB_USERNAME"
+        }
+      }
     },
     {
       "kind": "platform-resource",
       "name": "user-auth",
+      "description": "Validates shopper and store-owner sign-in tokens issued via Thunder SSO.",
       "resourceType": "thunder-app",
-      "parameters": { "scopes": "openid profile email" },
-      "description": "Validates shopper and store-owner sign-in tokens issued via Thunder SSO."
+      "parameters": {
+        "scopes": "openid profile email"
+      }
     },
     {
       "kind": "external",
       "name": "payment-provider",
+      "description": "Charges the shopper's payment method during checkout via the Stripe SDK.",
       "style": "sdk",
       "package": "npm:stripe@^14",
       "config": [
-        { "key": "PAYMENT_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the Stripe account" }
+        {
+          "key": "PAYMENT_PROVIDER_API_KEY",
+          "secret": true,
+          "description": "Secret API key for the Stripe account"
+        }
       ],
-      "description": "Charges the shopper's payment method during checkout via the Stripe SDK."
+      "wiring": {
+        "ref": "store-handmade-ce-7456a6f3",
+        "envBindings": {
+          "PAYMENT_PROVIDER_API_KEY": "PAYMENT_PROVIDER_API_KEY"
+        }
+      }
     },
     {
       "kind": "external",
       "name": "email-provider",
+      "description": "Sends order-confirmation emails after checkout via the SendGrid SDK.",
       "style": "sdk",
       "package": "npm:@sendgrid/mail@^8",
       "config": [
-        { "key": "EMAIL_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the SendGrid account" }
+        {
+          "key": "EMAIL_PROVIDER_API_KEY",
+          "secret": true,
+          "description": "Secret API key for the SendGrid account"
+        }
       ],
-      "description": "Sends order-confirmation emails after checkout via the SendGrid SDK."
+      "wiring": {
+        "ref": "store-handmade-ce-64489599",
+        "envBindings": {
+          "EMAIL_PROVIDER_API_KEY": "EMAIL_PROVIDER_API_KEY"
+        }
+      }
     }
   ],
-  "description": "The backend for the ceramics store: exposes the product/category catalog, cart, checkout, and order endpoints used by both the storefront and admin web apps, and enforces store-owner-only access on catalog and order-management operations. Does not render any UI and does not issue its own auth tokens — Thunder is the identity provider.",
-  "skillsPinned": ["openapi-conventions", "ballerina", "api-management", "thunder-authentication"]
+  "skillsPinned": [
+    "openapi-conventions",
+    "ballerina",
+    "api-management",
+    "thunder-authentication"
+  ]
 }

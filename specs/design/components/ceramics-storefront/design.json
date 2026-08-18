@@ -7,20 +7,36 @@
   "appPath": "ceramics-storefront",
   "entrypoint": "deployment/web-application",
   "exposure": "internet",
+  "description": "The customer-facing storefront: lets shoppers browse and search the catalog, manage a cart, check out as a guest or signed-in customer, and view their past orders when signed in. Does not manage the product catalog or order fulfillment — that is the admin app's job.",
   "dependencies": [
     {
       "kind": "component",
       "name": "ceramics-api",
-      "description": "Fetches the product catalog, manages the shopper's cart, submits checkout, and (when signed in) fetches order history."
+      "description": "Fetches the product catalog, manages the shopper's cart, submits checkout, and (when signed in) fetches order history.",
+      "wiring": {
+        "endpoint": {
+          "component": "store-handmade-ceramicsv1-ceramics-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "CERAMICS_API_URL"
+          }
+        }
+      }
     },
     {
       "kind": "platform-resource",
       "name": "user-auth",
+      "description": "Optional shopper sign-in via Thunder SSO to retain order history; guest checkout does not require it.",
       "resourceType": "thunder-app",
-      "parameters": { "scopes": "openid profile email" },
-      "description": "Optional shopper sign-in via Thunder SSO to retain order history; guest checkout does not require it."
+      "parameters": {
+        "scopes": "openid profile email"
+      }
     }
   ],
-  "description": "The customer-facing storefront: lets shoppers browse and search the catalog, manage a cart, check out as a guest or signed-in customer, and view their past orders when signed in. Does not manage the product catalog or order fulfillment — that is the admin app's job.",
-  "skillsPinned": ["wireframes", "react-webapp", "thunder-authentication"]
+  "skillsPinned": [
+    "wireframes",
+    "react-webapp",
+    "thunder-authentication"
+  ]
 }
