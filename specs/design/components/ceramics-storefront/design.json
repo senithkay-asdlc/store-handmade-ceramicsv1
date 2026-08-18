@@ -1,0 +1,26 @@
+{
+  "name": "ceramics-storefront",
+  "type": "web-application",
+  "version": "0.1.0",
+  "language": "TypeScript",
+  "buildpack": "docker",
+  "appPath": "ceramics-storefront",
+  "entrypoint": "deployment/web-application",
+  "exposure": "internet",
+  "dependencies": [
+    {
+      "kind": "component",
+      "name": "ceramics-api",
+      "description": "Fetches the product catalog, manages the shopper's cart, submits checkout, and (when signed in) fetches order history."
+    },
+    {
+      "kind": "platform-resource",
+      "name": "user-auth",
+      "resourceType": "thunder-app",
+      "parameters": { "scopes": "openid profile email" },
+      "description": "Optional shopper sign-in via Thunder SSO to retain order history; guest checkout does not require it."
+    }
+  ],
+  "description": "The customer-facing storefront: lets shoppers browse and search the catalog, manage a cart, check out as a guest or signed-in customer, and view their past orders when signed in. Does not manage the product catalog or order fulfillment — that is the admin app's job.",
+  "skillsPinned": ["wireframes", "react-webapp", "thunder-authentication"]
+}

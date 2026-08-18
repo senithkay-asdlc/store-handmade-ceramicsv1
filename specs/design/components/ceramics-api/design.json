@@ -1,0 +1,55 @@
+{
+  "name": "ceramics-api",
+  "type": "service",
+  "version": "0.1.0",
+  "language": "Ballerina",
+  "buildpack": "docker",
+  "appPath": "ceramics-api",
+  "entrypoint": "deployment/service",
+  "exposure": "internet",
+  "dependencies": [
+    {
+      "kind": "platform-resource",
+      "name": "ceramics-db",
+      "resourceType": "postgres",
+      "description": "Stores products, categories, carts, orders, and order items."
+    },
+    {
+      "kind": "platform-resource",
+      "name": "user-auth",
+      "resourceType": "thunder-app",
+      "parameters": { "scopes": "openid profile email" },
+      "description": "Validates shopper and store-owner sign-in tokens issued via Thunder SSO."
+    },
+    {
+      "kind": "external",
+      "name": "payment-provider",
+      "style": "sdk",
+      "candidates": [
+        { "name": "stripe", "style": "sdk", "package": "npm:stripe@^14" },
+        { "name": "paypal", "style": "sdk", "package": "npm:@paypal/checkout-server-sdk@^1" },
+        { "name": "square", "style": "rest-api", "package": "square" }
+      ],
+      "config": [
+        { "key": "PAYMENT_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the chosen payment provider" }
+      ],
+      "description": "Charges the shopper's payment method during checkout. Provider not yet pinned — candidates: Stripe, PayPal, Square."
+    },
+    {
+      "kind": "external",
+      "name": "email-provider",
+      "style": "sdk",
+      "candidates": [
+        { "name": "sendgrid", "style": "sdk", "package": "npm:@sendgrid/mail@^8" },
+        { "name": "resend", "style": "sdk", "package": "npm:resend@^3" },
+        { "name": "postmark", "style": "rest-api", "package": "postmark" }
+      ],
+      "config": [
+        { "key": "EMAIL_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the chosen transactional email provider" }
+      ],
+      "description": "Sends order-confirmation emails after checkout. Provider not yet pinned — candidates: SendGrid, Resend, Postmark."
+    }
+  ],
+  "description": "The backend for the ceramics store: exposes the product/category catalog, cart, checkout, and order endpoints used by both the storefront and admin web apps, and enforces store-owner-only access on catalog and order-management operations. Does not render any UI and does not issue its own auth tokens — Thunder is the identity provider.",
+  "skillsPinned": ["openapi-conventions", "ballerina", "api-management", "thunder-authentication"]
+}
