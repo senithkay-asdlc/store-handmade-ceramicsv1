@@ -26,36 +26,36 @@ and inventory, and to view and update the status of incoming orders.
 ## User Stories
 
 1. As a Shopper, I want to browse a catalog of ceramics products, so that I
- can discover pieces I want to buy.
+can discover pieces I want to buy.
 2. As a Shopper, I want to view a single product's details (photos,
- description, price, stock availability), so that I can decide whether to
- buy it.
+description, price, stock availability), so that I can decide whether to
+buy it.
 3. As a Shopper, I want to search or filter the catalog (e.g. by category),
- so that I can find products faster.
+so that I can find products faster.
 4. As a Shopper, I want to add products to a cart and adjust quantities, so
- that I can collect items before buying.
+that I can collect items before buying.
 5. As a Shopper, I want to remove items from my cart, so that I can correct
- mistakes before checkout.
+mistakes before checkout.
 6. As a Shopper, I want to check out as a guest, providing shipping and
- payment details, so that I can complete a purchase without creating an
- account.
+payment details, so that I can complete a purchase without creating an
+account.
 7. As a Shopper, I want to sign in via SSO, so that my order history and
- details are saved for future visits.
+details are saved for future visits.
 8. As a signed-in Shopper, I want to view my past orders and their status,
- so that I can track my purchases.
+so that I can track my purchases.
 9. As a Shopper, I want to receive an order confirmation after checkout, so
- that I know my purchase succeeded.
+that I know my purchase succeeded.
 10. As a Store Owner, I want to sign in to an admin area, so that only I can
- manage the store.
+manage the store.
 11. As a Store Owner, I want to add, edit, and remove products in the
- catalog, so that I can keep listings current.
+catalog, so that I can keep listings current.
 12. As a Store Owner, I want to set and update stock quantities for each
- product, so that shoppers never buy something I can't fulfill.
+product, so that shoppers never buy something I can't fulfill.
 13. As a Store Owner, I want the store to prevent checkout of out-of-stock
- items, so that I don't oversell limited handmade inventory.
+items, so that I don't oversell limited handmade inventory.
 14. As a Store Owner, I want to view incoming orders and update their
- fulfillment status (e.g. processing, shipped, delivered), so that I can
- manage fulfillment.
+fulfillment status (e.g. processing, shipped, delivered), so that I can
+manage fulfillment.
 
 ## Product Decisions
 
@@ -89,7 +89,7 @@ design time)*.
 ## Open Questions
 
 1. Which payment processor should the store integrate with? — deferred; not
- required to unblock design, since the PRD only commits to the capability.
+required to unblock design, since the PRD only commits to the capability.
 
 ## Further Notes
 
