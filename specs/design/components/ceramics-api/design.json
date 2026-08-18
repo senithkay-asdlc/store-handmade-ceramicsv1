@@ -35,15 +35,11 @@
       "kind": "external",
       "name": "email-provider",
       "style": "sdk",
-      "candidates": [
-        { "name": "sendgrid", "style": "sdk", "package": "npm:@sendgrid/mail@^8" },
-        { "name": "resend", "style": "sdk", "package": "npm:resend@^3" },
-        { "name": "postmark", "style": "rest-api", "package": "postmark" }
-      ],
+      "package": "npm:@sendgrid/mail@^8",
       "config": [
-        { "key": "EMAIL_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the chosen transactional email provider" }
+        { "key": "EMAIL_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the SendGrid account" }
       ],
-      "description": "Sends order-confirmation emails after checkout. Provider not yet pinned — candidates: SendGrid, Resend, Postmark."
+      "description": "Sends order-confirmation emails after checkout via the SendGrid SDK."
     }
   ],
   "description": "The backend for the ceramics store: exposes the product/category catalog, cart, checkout, and order endpoints used by both the storefront and admin web apps, and enforces store-owner-only access on catalog and order-management operations. Does not render any UI and does not issue its own auth tokens — Thunder is the identity provider.",
