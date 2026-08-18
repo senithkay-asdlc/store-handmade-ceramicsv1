@@ -25,15 +25,11 @@
       "kind": "external",
       "name": "payment-provider",
       "style": "sdk",
-      "candidates": [
-        { "name": "stripe", "style": "sdk", "package": "npm:stripe@^14" },
-        { "name": "paypal", "style": "sdk", "package": "npm:@paypal/checkout-server-sdk@^1" },
-        { "name": "square", "style": "rest-api", "package": "square" }
-      ],
+      "package": "npm:stripe@^14",
       "config": [
-        { "key": "PAYMENT_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the chosen payment provider" }
+        { "key": "PAYMENT_PROVIDER_API_KEY", "secret": true, "description": "Secret API key for the Stripe account" }
       ],
-      "description": "Charges the shopper's payment method during checkout. Provider not yet pinned — candidates: Stripe, PayPal, Square."
+      "description": "Charges the shopper's payment method during checkout via the Stripe SDK."
     },
     {
       "kind": "external",
